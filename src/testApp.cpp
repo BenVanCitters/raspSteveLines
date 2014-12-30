@@ -5,7 +5,7 @@ void testApp::setup(){
 	cout << "AudioShader" << endl;
 	audioShader.load("audioShader.vert", "audioShader.frag", "");
 	cout << "swirly Shader: " << endl;
-	shader.load("Multitexture_GLES.vert", "Multitexture_GLES.frag", "");
+	shader.load("feedback.vert", "feedback.frag", "");
 
 	drawWidth = ofGetScreenWidth();
 	drawHeight = ofGetScreenHeight();
@@ -20,7 +20,7 @@ void testApp::setup(){
 	ofHideCursor();
 	ofEnableAlphaBlending();
 
-	fingerMovie.loadMovie("movies/oceanseleven1960sm2.mp4");
+	fingerMovie.loadMovie("movies/fingers.mov");
 	fingerMovie.play();
 	fingerMovie.setLoopState(OF_LOOP_NORMAL);
 	ofSetBackgroundAuto(false);
