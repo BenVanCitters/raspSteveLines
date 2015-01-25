@@ -20,7 +20,7 @@ void testApp::setup(){
 	ofHideCursor();
 	ofEnableAlphaBlending();
 
-	fingerMovie.loadMovie("movies/oceanseleven1960sm2.mp4");
+	fingerMovie.loadMovie("movies/NFL1.mp4");
 	fingerMovie.play();
 	fingerMovie.setLoopState(OF_LOOP_NORMAL);
 	ofSetBackgroundAuto(false);
@@ -43,9 +43,9 @@ void testApp::soundSetup()
 	levels = new float[bufferSize*2];
 	for(int i = 0; i < bufferSize; i++)
 	{
-		audioSamples[2*i] = ofVec2f(i*hSpacing, -150);
-		audioSamples[2*i+1] = ofVec2f(i*hSpacing, 150);
-		levels[2*i] = levels[2*i+1]= ofRandom(-100,100);
+		audioSamples[2*i] = ofVec2f(i*hSpacing, -350);
+		audioSamples[2*i+1] = ofVec2f(i*hSpacing, 350);
+		levels[2*i] = levels[2*i+1]= ofRandom(-250,250);
 	}
 	audioStrip.setVertexData(audioSamples, bufferSize*2, GL_STATIC_DRAW);
 	audioAttribLocation = audioShader.getAttributeLocation("audioLevel");
@@ -76,6 +76,9 @@ void testApp::update(){
 			ofTexture texRef = fingerMovie.getTextureReference();
 			texRef.setTextureWrap(GL_REPEAT, GL_REPEAT);
     			audioShader.setUniformTexture("tex0", texRef, 1);
+    			audioShader.setUniform1f("highCut",1.0);// (sin(ofGetElapsedTimef())+1)/2.f );
+    			audioShader.setUniform1f("time",ofGetElapsedTimef());
+    			audioShader.setUniform1f("lowCut", 0.0);// (sin(ofGetElapsedTimef()+2)+1)/2.f);
     			audioShader.setUniform2f("resolution", drawWidth, drawHeight);
 			audioStrip.draw(GL_TRIANGLE_STRIP, 0, 512);
     			//ofRect(0,-20, drawWidth/2,100);
